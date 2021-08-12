@@ -1,0 +1,16 @@
+table, th, td {
+  border: 1px solid black;
+  width: 100%;
+  border-collapse: collapse;
+}
+.navi{
+  display: flex;
+  justify-content: space-around;
+}
+.col-w25{
+  width: 25%;
+}
+
+.col-w10{
+  width: 10%;
+}
