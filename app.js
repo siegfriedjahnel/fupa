@@ -67,7 +67,7 @@ function minus(){
 async function getResultsFromFupa(){
   console.log(inc+ " " +page+ " " +dir+ " " + liga);
   const uri = `https://api.fupa.net/v1/competitions/${liga}/seasons/current/matches?pointer=${pointer}&dir=${dir}&page=${page}`;
-  const response = await fetch(uri);
+  const response = await fetch(uri, {mode: 'no-cors'});
   const json = await response.json();
   thead.innerHTML="";
   tbody.innerHTML="";
