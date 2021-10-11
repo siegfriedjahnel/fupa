@@ -12,6 +12,7 @@ let inc = 1;
 let liga ="";
 const now = new Date()
 let pointer = now.toISOString().split('T')[0];
+const proxy = "https://api.allorigins.win/get?url=";
 //----------------------------------------------------
 var hammertime = new Hammer(content);
 hammertime.on('swipe', function (ev) {
@@ -66,13 +67,21 @@ function minus(){
 
 async function getResultsFromFupa(){
   console.log(inc+ " " +page+ " " +dir+ " " + liga);
-  const uri = `https://api.fupa.net/v1/competitions/${liga}/seasons/current/matches?pointer=${pointer}&dir=${dir}&page=${page}`;
-  const response = await fetch(uri, {mode: 'no-cors'});
+  //const proxy = `https://sj-sam.de/proxy/uniProxy.php`;
+  
+  //https://sj-sam.de/proxy/uniProxy.php?url=https://api.fupa.net/v1/competitions/bayern-landesliga-suedost/seasons/current/matches?pointer=2021-08-19&dir=next&page=2
+  let uri = `https://api.fupa.net/v1/competitions/${liga}/seasons/current/matches?pointer=${pointer}&dir=${dir}&page=${page}`;
+  uri = encodeURIComponent(uri);
+  let url = proxy+uri;
+  
+  const response = await fetch(url);
   const json = await response.json();
+  const sdata = json.contents;
+  const obj = JSON.parse(sdata);
   thead.innerHTML="";
   tbody.innerHTML="";
   thead.innerHTML = thResults;
-  json.forEach(element => {
+  obj.forEach(element => {
     const datetime = new Date(element.kickoff);
     const weekday = datetime.toLocaleDateString('de-DE', options).substring(0, 2);
     const uhrzeit = datetime.toLocaleTimeString('de-DE').substring(0, 5);
@@ -94,12 +103,16 @@ async function getResultsFromFupa(){
 
 async function getStandingsFromFupa(){
   const uri = `https://api.fupa.net/v1/standings?competition=${liga}`;
-  const response = await fetch(uri);
+  uri = encodeURIComponent(uri);
+  let url = proxy+uri;
+  const response = await fetch(url);
   const json = await response.json();
+  const sdata = json.contents;
+  const obj = JSON.parse(sdata);
   thead.innerHTML="";
   tbody.innerHTML="";
   thead.innerHTML = thStandings;
-  json.standings.forEach(element => {
+  obj.standings.forEach(element => {
     const matches = element.matches;
     const diff = element.goalDifference;
     const points = element.points;
