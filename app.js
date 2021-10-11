@@ -102,7 +102,7 @@ async function getResultsFromFupa(){
 }
 
 async function getStandingsFromFupa(){
-  const uri = `https://api.fupa.net/v1/standings?competition=${liga}`;
+  let uri = `https://api.fupa.net/v1/standings?competition=${liga}`;
   uri = encodeURIComponent(uri);
   let url = proxy+uri;
   const response = await fetch(url);
