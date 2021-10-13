@@ -67,9 +67,7 @@ function minus(){
 
 async function getResultsFromFupa(){
   console.log(inc+ " " +page+ " " +dir+ " " + liga);
-  //const proxy = `https://sj-sam.de/proxy/uniProxy.php`;
   
-  //https://sj-sam.de/proxy/uniProxy.php?url=https://api.fupa.net/v1/competitions/bayern-landesliga-suedost/seasons/current/matches?pointer=2021-08-19&dir=next&page=2
   let uri = `https://api.fupa.net/v1/competitions/${liga}/seasons/current/matches?pointer=${pointer}&dir=${dir}&page=${page}`;
   uri = encodeURIComponent(uri);
   let url = proxy+uri;
