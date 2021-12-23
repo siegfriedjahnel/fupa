@@ -15,12 +15,14 @@ let pointer = now.toISOString().split('T')[0];
 const proxy = "https://api.allorigins.win/get?url=";
 //----------------------------------------------------
 var hammertime = new Hammer(content);
+hammertime.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
 hammertime.on('swipe', function (ev) {
-  if (ev.direction == 2) {
+  console.log("swipe", ev);
+  if (ev.direction == 8) {
     //changeMatchday(1);
     plus();
   }
-  if (ev.direction == 4) {
+  if (ev.direction == 2) {
     // changeMatchday(-1);
     minus();
   }
