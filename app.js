@@ -15,7 +15,6 @@ let pointer = now.toISOString().split('T')[0];
 const proxy = "https://api.allorigins.win/get?url=";
 //----------------------------------------------------
 var hammertime = new Hammer(content);
-//hammertime.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
 hammertime.on('swipe', function (ev) {
   console.log("swipe", ev);
   if (ev.direction == 2) {
@@ -31,6 +30,8 @@ hammertime.on('swipe', function (ev) {
 });
 //-----------------------------------
 
+
+//------------------------------------
 function selectLiga(l){
   liga = l;
   dir="";

@@ -2,24 +2,27 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<title>Titel</title>
+<title>FuPa Results</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="style.css" rel="stylesheet">
 <script src="hammer.min.js"></script>
 </head>
 <body>
-  <div class="navi">
-    <button onclick="selectLiga('bayern-landesliga-suedost')">LLSO</button>
-    <button onclick="selectLiga('inn-salzach-kreisliga-2')">KLIS</button>
-  </div>
-  <div class="navi">
-    <button onclick="getResultsFromFupa()"> SPIELE </button>
-    <button onclick="getStandingsFromFupa()"> TABELLE </button>
-  </div>
-  <div class="navi">
-    <button onclick="minus()">-</button> <button onclick="plus()">+</button>
-  </div>
+  <section>
+
+    <div class="navi">
+      <button onclick="selectLiga('bayern-landesliga-suedost')">LLSO</button>
+      <button onclick="selectLiga('inn-salzach-kreisliga-2')">KLIS</button>
+    </div>
+    <div class="navi">
+      <button onclick="getResultsFromFupa()"> SPIELE </button>
+      <button onclick="getStandingsFromFupa()"> TABELLE </button>
+    </div>
+    <div class="navi">
+      <button onclick="minus()">-</button> <button onclick="plus()">+</button>
+    </div>
+  </section>
 
 <div id = "content">
 
