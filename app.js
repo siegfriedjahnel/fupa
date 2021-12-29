@@ -2,14 +2,16 @@ const tbody = document.getElementById("tbody");
 const thead = document.getElementById("thead");
 const options = { weekday: 'short', year: 'numeric', month: 'numeric', day: 'numeric' };
 const content = document.getElementById("content");
+const breadcrumb = document.getElementById("breadcrumb");
+const footer = document.getElementById("footer");
 const thResults = `<tr><th>Zeit</th><th class="col-w10">ST</th><th>Mannschaft</th><th>Erg</th></tr>`;
 const thStandings = `<tr><th>Pos</th><th>Verein</th><th>Sp</th><th>Pkt</th><th>Diff</th></tr>`;
 let page = 1;
 let dir = "";
 let inc = 1;
-// let liga = "bayern-landesliga-suedost";
-// let liga = "inn-salzach-kreisliga-2";
-let liga ="";
+let liga ="bayern-landesliga-suedost";//initial setup
+breadcrumb.innerHTML = "LLSO";
+footer.innerHTML = self.location;
 const now = new Date()
 let pointer = now.toISOString().split('T')[0];
 const proxy = "https://api.allorigins.win/get?url=";
@@ -32,10 +34,11 @@ hammertime.on('swipe', function (ev) {
 
 
 //------------------------------------
-function selectLiga(l){
+function selectLiga(slug,l){
   liga = l;
   dir="";
   page=1;
+  breadcrumb.innerHTML = slug;
   getResultsFromFupa(liga);
 }
 
@@ -104,7 +107,7 @@ async function getResultsFromFupa(){
   });
 }
 
-async function getStandingsFromFupa(){
+async function getStandingsFromFupa(slug){
   let uri = `https://api.fupa.net/v1/standings?competition=${liga}`;
   uri = encodeURIComponent(uri);
   let url = proxy+uri;
@@ -128,5 +131,5 @@ async function getStandingsFromFupa(){
 
   });
 }
-// getResultsFromFupa();
+getResultsFromFupa(liga);
 // getStandingsFromFupa();

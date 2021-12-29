@@ -1,38 +1,41 @@
 <!doctype html>
 <html lang="de">
+
 <head>
-<meta charset="utf-8">
-<title>FuPa Results</title>
-<meta name="description" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="style.css" rel="stylesheet">
-<script src="hammer.min.js"></script>
+  <meta charset="utf-8">
+  <title>FuPa Results</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="style.css" rel="stylesheet">
+  <script src="hammer.min.js"></script>
 </head>
+
 <body>
-  <section>
-
-    <div class="navi">
-      <button onclick="selectLiga('bayern-landesliga-suedost')">LLSO</button>
-      <button onclick="selectLiga('inn-salzach-kreisliga-2')">KLIS</button>
-    </div>
-    <div class="navi">
-      <button onclick="getResultsFromFupa()"> SPIELE </button>
-      <button onclick="getStandingsFromFupa()"> TABELLE </button>
-    </div>
-    <div class="navi">
-      <button onclick="minus()">-</button> <button onclick="plus()">+</button>
-    </div>
-  </section>
-
-<div id = "content">
-
-  <table>
-    <thead id = "thead"></thead>
-    <tbody id = "tbody"></tbody>
-  </table>
-</div>
 
 
+  <div class="navi">
+    <button id = "LLSO" onclick="selectLiga(this.id,'bayern-landesliga-suedost')">LLSO</button>
+    <button id = "KLIS" onclick="selectLiga(this.id,'inn-salzach-kreisliga-2')">KLIS</button>
+  </div>
+  <div class="navi">
+    <button onclick="getResultsFromFupa()"> SPIELE </button>
+    <button onclick="getStandingsFromFupa()"> TABELLE </button>
+  </div>
+  <div class="navi">
+    <button onclick="minus()">-</button> <button onclick="plus()">+</button>
+  </div>
+  <div class="navi" id="breadcrumb"></div>
+
+  <div id="content">
+
+    <table>
+      <thead id="thead"></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+<div class="footer" id="footer"></div>
 </body>
 <script src="app.js"></script>
+
 </html>
