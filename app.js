@@ -9,8 +9,8 @@ const thStandings = `<tr><th>Pos</th><th>Verein</th><th>Sp</th><th>Pkt</th><th>D
 let page = 1;
 let dir = "";
 let inc = 1;
-let liga ="bayern-landesliga-suedost";//initial setup
-breadcrumb.innerHTML = "LLSO";
+let liga ="bezirksliga-oberbayern-ost";//initial setup
+breadcrumb.innerHTML = "Bezirksliga Oberbayern Ost";
 footer.innerHTML = self.location;
 const now = new Date()
 let pointer = now.toISOString().split('T')[0];
@@ -34,7 +34,7 @@ hammertime.on('swipe', function (ev) {
 
 
 //------------------------------------
-function selectLiga(slug,l){
+function selectLiga(slug, l){
   liga = l;
   dir="";
   page=1;
@@ -74,7 +74,7 @@ function minus(){
 
 
 async function getResultsFromFupa(){
-  console.log(inc+ " " +page+ " " +dir+ " " + liga);
+  //console.log(inc+ " " +page+ " " +dir+ " " + liga);
   
   let uri = `https://api.fupa.net/v1/competitions/${liga}/seasons/current/matches?pointer=${pointer}&dir=${dir}&page=${page}`;
   uri = encodeURIComponent(uri);
