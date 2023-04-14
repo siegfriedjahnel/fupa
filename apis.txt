@@ -1,0 +1,14 @@
+https://api.fupa.net/v1/competitions/${liga}/seasons/current/matches?pointer=${pointer}&
+
+https://api.fupa.net/v1/competitions/bezirksliga-oberbayern-ost/seasons/current/matches?pointer=2023-04-12&
+
+https://api.fupa.net/v1/competitions/bezirksliga-oberbayern-ost/seasons/current/matches?from=2023-04-12&
+
+https://api.fupa.net/v1/competitions/bezirksliga-oberbayern-ost/seasons/current/matches?sort=desc&to=2023-04-11&limit=25&offset=25
+
+
+
+https://api.fupa.net/v1/competitions/bezirksliga-oberbayern-ost/seasons/current/matches?sort=desc&to=2023-04-11&limit=25&offset=50
+
+
+https%3A%2F%2Fapi.fupa.net%2Fv1%2Fcompetitions%2Fbezirksliga-oberbayern-ost%2Fseasons%2Fcurrent%2Fmatches%3Fpointer%3D2023-04-12%26dir%3D%26page%3D1

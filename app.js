@@ -7,14 +7,18 @@ const footer = document.getElementById("footer");
 const thResults = `<tr><th>Zeit</th><th class="col-w10">ST</th><th>Mannschaft</th><th>Erg</th></tr>`;
 const thStandings = `<tr><th>Pos</th><th>Verein</th><th>Sp</th><th>Pkt</th><th>Diff</th></tr>`;
 let page = 1;
-let dir = "";
 let inc = 1;
+let dir = "from";
+let sort = "asc";
 let liga ="bezirksliga-oberbayern-ost";//initial setup
 breadcrumb.innerHTML = "Bezirksliga Oberbayern Ost";
 footer.innerHTML = self.location;
 const now = new Date()
 let pointer = now.toISOString().split('T')[0];
-const proxy = "https://api.allorigins.win/get?url=";
+let pointer1 = "";
+let pointer2 = "";
+const pointers = []; //array of pointers
+const proxy = "https://sj-sam.de/proxy/uniProxy.php?url=";
 //----------------------------------------------------
 var hammertime = new Hammer(content);
 hammertime.on('swipe', function (ev) {
@@ -36,37 +40,24 @@ hammertime.on('swipe', function (ev) {
 //------------------------------------
 function selectLiga(slug, l){
   liga = l;
-  dir="";
-  page=1;
+  dir = "from";
+  pointer = now.toISOString().split('T')[0];
   breadcrumb.innerHTML = slug;
-  getResultsFromFupa(liga);
+  getResultsFromFupa();
 }
 
 function plus(){
-  if(page>1 && dir =="prev"){
-    inc=-1;
-  }else if(page==1 && dir=="prev"){
-    dir="next";
-    inc = 1;
-  }else{
-    inc = 1;
-    dir = "next";
-  }
-  page = page+inc;
+  pointer = pointer2;
+  sort = "asc";
+  dir = "from";
+  
   getResultsFromFupa();
 }
 
 function minus(){
-  if(page>1 && dir =="next"){
-    inc=-1;
-  }else if(page==1 && dir=="next"){
-    dir="prev";
-    inc = 1;
-  }else{
-    inc=1;
-    dir="prev";
-  }
-  page = page+inc;
+  pointer = pointer2;
+  sort = "desc";
+  dir = "to";
   getResultsFromFupa();
 }
 
@@ -74,16 +65,13 @@ function minus(){
 
 
 async function getResultsFromFupa(){
-  //console.log(inc+ " " +page+ " " +dir+ " " + liga);
-  
-  let uri = `https://api.fupa.net/v1/competitions/${liga}/seasons/current/matches?pointer=${pointer}&dir=${dir}&page=${page}`;
+  let uri = `https://api.fupa.net/v1/competitions/${liga}/seasons/current/matches?${dir}=${pointer}&sort=${sort}`;
   uri = encodeURIComponent(uri);
   let url = proxy+uri;
-  
+  console.log("url ", url);
   const response = await fetch(url);
-  const json = await response.json();
-  const sdata = json.contents;
-  const obj = JSON.parse(sdata);
+  const obj = await response.json();
+  
   thead.innerHTML="";
   tbody.innerHTML="";
   thead.innerHTML = thResults;
@@ -97,14 +85,18 @@ async function getResultsFromFupa(){
     const matchday = element.round.number;
     let homeGoal="--";
     let awayGoal="--";
-    
+    pointers.push(element.kickoff.substring(0,10));//push all pointers into array pointers
     if(element.homeGoal !==null) homeGoal=element.homeGoal;
     if(element.awayGoal !==null) awayGoal=element.awayGoal;
     const tr = document.createElement("tr");
     tr.innerHTML = `<tr><td>${weekday}, ${uhrzeit}<br>${date}</td><td>${matchday}</td><td>${team1}<br>${team2}</td><td>${homeGoal}:${awayGoal}</td></tr>`;
     tbody.appendChild(tr);
-
+    
   });
+  pointer2 = pointers.pop();
+  pointer1 = pointers.shift();
+  console.log("pointer1: ",pointer1);
+  console.log("pointer2: ",pointer2);
 }
 
 async function getStandingsFromFupa(slug){
@@ -112,9 +104,7 @@ async function getStandingsFromFupa(slug){
   uri = encodeURIComponent(uri);
   let url = proxy+uri;
   const response = await fetch(url);
-  const json = await response.json();
-  const sdata = json.contents;
-  const obj = JSON.parse(sdata);
+  const obj= await response.json();
   thead.innerHTML="";
   tbody.innerHTML="";
   thead.innerHTML = thStandings;
