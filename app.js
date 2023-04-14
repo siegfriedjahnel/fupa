@@ -2,6 +2,7 @@ const tbody = document.getElementById("tbody");
 const thead = document.getElementById("thead");
 const options = { weekday: 'short', year: 'numeric', month: 'numeric', day: 'numeric' };
 const content = document.getElementById("content");
+const spinner = document.getElementById("spinner");
 const breadcrumb = document.getElementById("breadcrumb");
 const footer = document.getElementById("footer");
 const thResults = `<tr><th>Zeit</th><th class="col-w10">ST</th><th>Mannschaft</th><th>Erg</th></tr>`;
@@ -65,13 +66,15 @@ function minus(){
 
 
 async function getResultsFromFupa(){
+  spinner.innerHTML = `<img src="spinner.gif">`;
+  tbody.innerHTML = "";
   let uri = `https://api.fupa.net/v1/competitions/${liga}/seasons/current/matches?${dir}=${pointer}&sort=${sort}`;
   uri = encodeURIComponent(uri);
   let url = proxy+uri;
   console.log("url ", url);
   const response = await fetch(url);
   const obj = await response.json();
-  
+  spinner.innerHTML = "";
   thead.innerHTML="";
   tbody.innerHTML="";
   thead.innerHTML = thResults;
@@ -100,11 +103,14 @@ async function getResultsFromFupa(){
 }
 
 async function getStandingsFromFupa(slug){
+  tbody.innerHTML = "";
+  spinner.innerHTML = `<img src = "spinner.gif">`;
   let uri = `https://api.fupa.net/v1/standings?competition=${liga}`;
   uri = encodeURIComponent(uri);
   let url = proxy+uri;
   const response = await fetch(url);
   const obj= await response.json();
+  spinner.innerHTML = "";
   thead.innerHTML="";
   tbody.innerHTML="";
   thead.innerHTML = thStandings;
