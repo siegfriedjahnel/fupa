@@ -85,6 +85,7 @@ async function getResultsFromFupa(){
     const date = datetime.toLocaleDateString('de-DE', options).substring(4, 14);
     const team1 = element.homeTeam.name.middle;
     const team2 = element.awayTeam.name.middle;
+    const slug = element.slug;
     const matchday = element.round.number;
     let homeGoal="--";
     let awayGoal="--";
@@ -92,7 +93,12 @@ async function getResultsFromFupa(){
     if(element.homeGoal !==null) homeGoal=element.homeGoal;
     if(element.awayGoal !==null) awayGoal=element.awayGoal;
     const tr = document.createElement("tr");
-    tr.innerHTML = `<tr><td>${weekday}, ${uhrzeit}<br>${date}</td><td>${matchday}</td><td>${team1}<br>${team2}</td><td>${homeGoal}:${awayGoal}</td></tr>`;
+    if(slug.includes("toeging")){
+
+      tr.innerHTML = `<tr><td>${weekday}, ${uhrzeit}<br>${date}</td><td>${matchday}</td><td><b>${team1}<br>${team2}</b></td><td>${homeGoal}:${awayGoal}</td></tr>`;
+    }else{
+      tr.innerHTML = `<tr><td>${weekday}, ${uhrzeit}<br>${date}</td><td>${matchday}</td><td>${team1}<br>${team2}</td><td>${homeGoal}:${awayGoal}</td></tr>`;
+    }
     tbody.appendChild(tr);
     
   });
